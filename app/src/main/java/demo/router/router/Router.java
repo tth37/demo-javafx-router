@@ -1,20 +1,27 @@
 package demo.router.router;
 
 
-import javafx.collections.ObservableMap;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
 
 public abstract class Router extends AnchorPane {
 
-    ArrayList<String> endpoints;
+    static Map<String, Function<Void, Void>> registry = new HashMap<>();
+
+    private final ArrayList<String> endpoints;
+
+    private static void register(String endpoint, Function<Void, Void> callback) {
+        System.out.println("Registering " + endpoint);
+        Router.registry.put(endpoint, callback);
+    }
 
     public Router() {
-        this.endpoints = new ArrayList<String>();
+        this.endpoints = new ArrayList<>();
         this.setRouterEndpoints();
 
         FXMLLoader loader = new FXMLLoader();
@@ -24,10 +31,6 @@ public abstract class Router extends AnchorPane {
         } catch (Exception e) {
             System.out.println(e);
         }
-    }
-
-    public boolean contains(String endpoint) {
-        return this.endpoints.contains(endpoint);
     }
 
     public void route(String endpoint) {
@@ -45,5 +48,13 @@ public abstract class Router extends AnchorPane {
     }
 
     public abstract void setRouterEndpoints();
+
+    public void addRouterEndpoint(String endpoint) {
+        this.endpoints.add(endpoint);
+        register(endpoint, (Void) -> {
+            this.route(endpoint);
+            return null;
+        });
+    }
 
 }
