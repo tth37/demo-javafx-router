@@ -33,7 +33,14 @@ public abstract class Router extends AnchorPane {
         }
     }
 
-    public void route(String endpoint) {
+    public static void route(String endpoint) {
+        Function<Void, Void> callback = Router.registry.get(endpoint);
+        if (callback != null) {
+            callback.apply(null);
+        }
+    }
+
+    private void routeImpl(String endpoint) {
         if (this.endpoints.contains(endpoint)) {
             this.getChildren().clear();
 
@@ -52,7 +59,7 @@ public abstract class Router extends AnchorPane {
     public void addRouterEndpoint(String endpoint) {
         this.endpoints.add(endpoint);
         register(endpoint, (Void) -> {
-            this.route(endpoint);
+            this.routeImpl(endpoint);
             return null;
         });
     }

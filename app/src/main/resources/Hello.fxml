@@ -8,7 +8,6 @@
 <?import demo.router.router.Router?>
 
 <?import com.sun.javafx.scene.control.ContextMenuContent.MenuBox?>
-<?import demo.router.router.RouterButton?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             prefHeight="400.0" prefWidth="600.0"
@@ -16,5 +15,5 @@
             fx:controller="demo.router.controllers.HelloController"
 >
     <Label text="Hello!"/>
-    <RouterButton fx:id="btnToWorld" text="Go to world from hello!" onAction="#toWorld"/>
+    <Button text="Go to world from hello!" onAction="#toWorld"/>
 </AnchorPane>

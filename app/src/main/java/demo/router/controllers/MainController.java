@@ -1,15 +1,12 @@
 package demo.router.controllers;
 
 import demo.router.router.MainRouter;
-import demo.router.router.RouterButton;
+import demo.router.router.Router;
 import javafx.fxml.FXML;
 
 public class MainController {
     @FXML
     private MainRouter mainRouter;
-
-    @FXML
-    private RouterButton btnToHello;
 
     /**
      * There are 2 ways of routing to a specific .fxml endpoint:
@@ -29,9 +26,10 @@ public class MainController {
      */
     @FXML
     public void toWorld() {
-        this.mainRouter.route("/World.fxml");
+        System.out.println("Routing to World (Method 1)");
+        Router.route("/World.fxml");
     }
 
     @FXML
-    public void toHello() { this.btnToHello.route("/Hello.fxml"); }
+    public void toHello() { Router.route("/Hello.fxml"); }
 }

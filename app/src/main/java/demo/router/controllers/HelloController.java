@@ -1,15 +1,13 @@
 package demo.router.controllers;
 
-import demo.router.router.RouterButton;
+import demo.router.router.Router;
 import javafx.fxml.FXML;
 
 public class HelloController {
 
-    @FXML
-    private RouterButton btnToWorld;
 
     @FXML
     public void toWorld() {
-        this.btnToWorld.route("/World.fxml");
+        Router.route("/World.fxml");
     }
 }
